@@ -1,0 +1,107 @@
+.window {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.messages {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-gutter: stable;
+}
+
+.message {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  display: grid;
+  gap: 10px;
+  max-width: min(760px, 100%);
+  padding: 16px;
+}
+
+.user {
+  align-self: flex-end;
+  background: rgba(114, 243, 177, 0.08);
+  border-color: rgba(114, 243, 177, 0.25);
+}
+
+.metaRow {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  justify-content: flex-start;
+}
+
+.role {
+  flex-shrink: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.date {
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-left: auto;
+  text-align: right;
+}
+
+.content {
+  line-height: 1.7;
+  margin: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.interaction {
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.8rem;
+}
+
+.emptyState {
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  display: grid;
+  flex: 1;
+  gap: 8px;
+  min-height: 0;
+  padding: 24px;
+  place-items: center;
+  text-align: center;
+}
+
+.emptyState h2,
+.emptyState p {
+  margin: 0;
+}
+
+.emptyState p,
+.status {
+  color: var(--muted);
+  flex-shrink: 0;
+  margin: 0 0 14px;
+}
+
+.error {
+  color: var(--danger);
+  margin: 0 0 14px;
+}

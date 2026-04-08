@@ -1,0 +1,169 @@
+# Cursor Rules - NeuralDesk Lite
+
+## 🎯 Objective
+
+Generate clean, simple and functional code for an AI service system MVP.
+
+Avoid unnecessary complexity.
+
+---
+
+## 📌 General rules
+
+- Prioritize simplicity over perfection
+- Avoid premature abstractions
+- Do not create multiple microservices
+- Maintain architecture in a single backend initially
+- Code must be readable and direct
+
+---
+
+## 🧱 Backend (NestJS)
+
+- Use simple structure:
+  - controller
+  - service
+  - module
+- Avoid complex patterns (full DDD, etc.)
+- Use clear services:
+  - Chat Service
+  - Agent Service
+  - Rag Service
+  - Model Service
+  - Log Service
+- Backend source root: `src`
+- Module locations:
+  - `src/auth`
+  - `src/chat`
+  - `src/agent`
+  - `src/rag`
+  - `src/model`
+  - `src/log`
+  - `src/prisma`
+- Tests live in: `test`
+- Swagger docs route: `/docs`
+- Dev backend script uses `tsx watch src/main.ts`
+- Constructor-based Nest DI should use explicit `@Inject(...)` on runtime dependencies to stay compatible in dev
+
+---
+
+## 🧠 IA / LLM
+
+- Centralize calls in a single service (`ModelService`)
+- Allow model change easily
+- Implement simple fallback:
+  - try model A
+  - if it fails → model B
+
+---
+
+## 🤖 Agents
+
+- Create two agents:
+  - Support Agent
+  - Sales Agent
+- Each agent must:
+  - have a base prompt
+  - be configurable
+
+---
+
+## 🔀 Orchestration
+
+- Implement within a single service (`ChatService`)
+- Flow should be:
+
+1. Classify intention
+2. Choose agent
+3. Search context (RAG)
+4. Assemble prompt
+5. Call model
+6. Apply fallback
+7. Return answer
+8. Save log
+
+---
+
+## 🧠 RAG
+
+- Start with simple search (string match)
+- Do not use embeddings initially
+- Structure can be:
+  - JSON
+  - list in memory
+
+---
+
+## 📊 Logs
+
+- Save:
+  - Input
+  - output
+  - agent
+  - model
+  - response time
+  - fallback (true/false)
+- Prefer simple logs (without external systems)
+
+---
+
+## 🗄️ Database
+
+- Local PostgreSQL: `docker compose up -d` (service `postgres`, DB `neural-desk-ai`)
+- Connection: `DATABASE_URL` in `.env` (see `.env.example`)
+- Minimum structure:
+  - Conversations
+  - logs
+- Prisma schema: `prisma/schema.prisma`
+- Prisma migrations: `prisma/migrations`
+- Seed script: `prisma/seed.mjs`
+- Future RAG context should live in `interaction_logs.retrieved_context`
+
+---
+
+## 🌐 API
+
+- Simple REST
+- Main endpoint: `POST /chat`
+- Auth endpoint: `POST /auth/login`
+
+---
+
+## 🎨 Frontend (Next.js)
+
+- Simple interface:
+  - chat
+  - message list
+  - agent display
+- Avoid heavy libs initially
+- Frontend app lives in: `frontend`
+- Next.js route root: `frontend/app`
+- Public login route: `/login`
+- Authenticated workspace route: `/`
+- Missing frontend session redirects to `/login`
+- Frontend components: `frontend/components`
+- Frontend helpers: `frontend/lib`
+- Frontend tests: `frontend/test`
+- Frontend login uses backend `POST /auth/login`
+- Frontend conversation list uses backend `GET /chat/conversations`
+- Frontend conversation detail uses backend `GET /chat/conversations/:conversationId`
+- Frontend send message uses backend `POST /chat`
+
+---
+
+## 🚫 Avoid
+
+- Microservices
+- Kubernetes
+- Complex messaging
+- Overengineering
+
+---
+
+## ✅ Priorities
+
+1. To work
+2. Be simple
+3. To be understandable
+4. Demonstrate AI concepts
+5. KISS - Keep It Simple Stupid

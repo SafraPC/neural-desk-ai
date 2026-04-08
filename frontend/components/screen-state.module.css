@@ -1,0 +1,6 @@
+.loading {
+  color: var(--muted);
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+}

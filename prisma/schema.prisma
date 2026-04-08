@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum AgentType {
+  SUPPORT
+  SALES
+}
+
+enum MessageRole {
+  USER
+  AI
+}
+
+model User {
+  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  username     String         @unique(map: "users_username_key") @db.VarChar(50)
+  passwordHash String         @map("password_hash") @db.VarChar(255)
+  role         UserRole       @default(USER)
+  createdAt    DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  conversations Conversation[]
+  messages     Message[]
+
+  @@map("users")
+}
+
+model Conversation {
+  id         String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId     String           @map("user_id") @db.Uuid
+  agentType  AgentType        @default(SUPPORT) @map("agent_type")
+  createdAt  DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime         @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages   Message[]
+  logs       InteractionLog[]
+
+  @@index([userId, updatedAt], map: "conversations_user_id_updated_at_idx")
+  @@index([agentType, updatedAt], map: "conversations_agent_type_updated_at_idx")
+  @@map("conversations")
+}
+
+model Message {
+  id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  conversationId String           @map("conversation_id") @db.Uuid
+  userId         String?          @map("user_id") @db.Uuid
+  role           MessageRole
+  content        String           @db.Text
+  createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime         @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  conversation   Conversation     @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user           User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  logs           InteractionLog[]
+
+  @@index([conversationId, createdAt], map: "messages_conversation_id_created_at_idx")
+  @@index([userId, createdAt], map: "messages_user_id_created_at_idx")
+  @@map("messages")
+}
+
+model InteractionLog {
+  id              String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  conversationId  String       @map("conversation_id") @db.Uuid
+  messageId       String?      @map("message_id") @db.Uuid
+  agentType       AgentType    @map("agent_type")
+  modelUsed       String       @map("model_used") @db.VarChar(100)
+  fallbackUsed    Boolean      @default(false) @map("fallback_used")
+  responseTimeMs  Int          @map("response_time_ms")
+  inputText       String       @map("input_text") @db.Text
+  outputText      String       @map("output_text") @db.Text
+  retrievedContext Json?       @map("retrieved_context")
+  createdAt       DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime     @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  message         Message?     @relation(fields: [messageId], references: [id], onDelete: SetNull)
+
+  @@index([conversationId, createdAt], map: "interaction_logs_conversation_id_created_at_idx")
+  @@index([messageId, createdAt], map: "interaction_logs_message_id_created_at_idx")
+  @@index([agentType, createdAt], map: "interaction_logs_agent_type_created_at_idx")
+  @@map("interaction_logs")
+}

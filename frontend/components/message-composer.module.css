@@ -1,0 +1,61 @@
+.composer {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  align-items: flex-end;
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+}
+
+.input {
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  color: var(--text);
+  flex: 1;
+  min-height: 108px;
+  padding: 14px 16px;
+  resize: vertical;
+}
+
+.button {
+  align-items: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  border: 0;
+  border-radius: 18px;
+  color: #042011;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 8px;
+  font-weight: 700;
+  height: 56px;
+  justify-content: center;
+  min-width: 112px;
+  padding: 0 16px;
+}
+
+.icon {
+  height: 18px;
+  width: 18px;
+}
+
+.buttonText {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.button:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+@media (max-width: 640px) {
+  .composer {
+    padding: 14px;
+  }
+
+  .input {
+    min-height: 96px;
+  }
+}

@@ -1,0 +1,28 @@
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: neural-desk-ai-postgres:16
+    container_name: neural-desk-ai-db
+    restart: unless-stopped
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-neural}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-neural}
+      POSTGRES_DB: ${POSTGRES_DB:-neural-desk-ai}
+    volumes:
+      - neural_desk_ai_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-neural} -d ${POSTGRES_DB:-neural-desk-ai}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  neural_desk_ai_pgdata:

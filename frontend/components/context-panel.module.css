@@ -1,0 +1,68 @@
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 0;
+  overflow: auto;
+  padding: 20px;
+}
+
+.header {
+  display: grid;
+  gap: 6px;
+}
+
+.kicker {
+  color: var(--accent);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  gap: 12px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+}
+
+.label {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.value {
+  line-height: 1.5;
+}
+
+.metrics {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+  padding-top: 18px;
+}
+
+.metric {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.metric span {
+  color: var(--muted);
+}

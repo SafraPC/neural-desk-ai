@@ -1,0 +1,50 @@
+{
+  "name": "neural-desk-ai",
+  "version": "1.0.0",
+  "description": "NeuralDesk Lite is an AI-based intelligent service system, designed as an MVP to study and apply modern software engineering concepts with artificial intelligence.",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "build:full": "npm run build && npm run frontend:build",
+    "frontend:build": "npm --prefix frontend run build",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:start": "npm --prefix frontend run start",
+    "frontend:test": "npm --prefix frontend run test",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio",
+    "start": "node dist/main.js",
+    "start:dev": "tsx watch src/main.ts",
+    "test": "jest --runInBand",
+    "test:full": "npm run test && npm run frontend:test"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/common": "^10.4.22",
+    "@nestjs/config": "^4.0.3",
+    "@nestjs/core": "^10.4.22",
+    "@nestjs/jwt": "^11.0.2",
+    "@nestjs/platform-express": "^10.4.22",
+    "@nestjs/swagger": "^8.1.1",
+    "@prisma/client": "^6.19.3",
+    "bcryptjs": "^3.0.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.4",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "^10.4.22",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.2",
+    "jest": "^30.3.0",
+    "prisma": "^6.19.3",
+    "ts-jest": "^29.4.9",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  }
+}

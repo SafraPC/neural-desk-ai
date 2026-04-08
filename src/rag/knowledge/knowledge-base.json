@@ -1,0 +1,44 @@
+[
+  {
+    "id": "support-account-access",
+    "agentType": "SUPPORT",
+    "title": "Account access support",
+    "content": "If a user cannot log in, confirm credentials, check password reset flow, and verify the account is active.",
+    "keywords": ["login", "password", "reset", "access", "account"]
+  },
+  {
+    "id": "support-billing-help",
+    "agentType": "SUPPORT",
+    "title": "Billing support",
+    "content": "For billing issues, confirm the billing period, payment status, and whether the invoice or subscription needs review.",
+    "keywords": ["billing", "invoice", "payment", "subscription", "charge"]
+  },
+  {
+    "id": "support-platform-errors",
+    "agentType": "SUPPORT",
+    "title": "Platform error handling",
+    "content": "For app errors, ask for the failing action, error message, time of issue, and whether the behavior is reproducible.",
+    "keywords": ["error", "bug", "issue", "fail", "broken"]
+  },
+  {
+    "id": "sales-pricing-overview",
+    "agentType": "SALES",
+    "title": "Pricing overview",
+    "content": "Sales conversations should explain available plans, pricing value, onboarding scope, and suitable next steps.",
+    "keywords": ["pricing", "price", "plan", "plans", "quote"]
+  },
+  {
+    "id": "sales-demo-flow",
+    "agentType": "SALES",
+    "title": "Demo requests",
+    "content": "For demo requests, qualify company need, desired use case, timeline, and preferred contact path.",
+    "keywords": ["demo", "trial", "use case", "contact", "timeline"]
+  },
+  {
+    "id": "sales-upgrade-flow",
+    "agentType": "SALES",
+    "title": "Upgrade conversations",
+    "content": "Upgrade discussions should highlight feature fit, current plan gaps, expected outcomes, and procurement requirements.",
+    "keywords": ["upgrade", "features", "contract", "proposal", "buy"]
+  }
+]
